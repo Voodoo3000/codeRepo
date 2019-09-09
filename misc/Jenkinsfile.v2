@@ -6,11 +6,11 @@ node {
      commit_id = readFile('.git/commit-id').trim()
    }
    stage('test') {
+     def wspace = pwd()
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside {
-       def wspace = pwd()
-       sh 'npm install --only=dev'
+       sh 'npm install'
        sh 'npm test'
      }
    }
