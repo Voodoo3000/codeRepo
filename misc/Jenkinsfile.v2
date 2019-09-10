@@ -9,7 +9,9 @@ node {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside {
-          sh 'su node && npm install && npm test'
+       sh 'export HOME=:/var/jenkins_home/workspace/test_in_docker/'
+       sh 'npm install --only=dev'
+       sh 'npm test'
      }
    }
    stage('test with a DB') {
@@ -17,8 +19,9 @@ node {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh 'npm install --only=dev' 
-          sh 'npm test'                     
+       sh 'export HOME=:/var/jenkins_home/workspace/test_in_docker/'
+       sh 'npm install --only=dev' 
+       sh 'npm test'                     
      }                                   
      mysql.stop()
    }                                     
