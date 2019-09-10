@@ -9,6 +9,7 @@ node {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside {
+       sh 'export HOME=/var/jenkins_home/workspace/test_in_docker/'
        sh 'npm install --only=dev'
        sh 'npm test'
      }
