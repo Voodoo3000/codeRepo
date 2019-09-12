@@ -31,6 +31,6 @@ node {
      }                                     
    }
    stage('Build infratsructure') {
-     def outputs = cfnUpdate(stack:'my-stack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerMain.yml', params:['MyKeyPair': 'dmpKeyPair'], )
+     def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerMain.yml')
    }
 }                                          
