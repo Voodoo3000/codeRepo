@@ -31,6 +31,8 @@ node {
      }                                     
    }
    stage('Build infratsructure') {
-     def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerMain.yml')
+     withAWS(credentials:'IDofAwsCredentials') {
+       def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerMain.yml')
+     }
    }
 }                                          
