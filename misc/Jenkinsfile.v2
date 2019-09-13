@@ -31,7 +31,7 @@ node {
      }                                     
    }
    stage('Build infratsructure') {
-     withAWS(credentials:'AWS_CLI_access_credentials') {
+     withAWS(credentials:'AKIATS75IC3SFMB2PLO4') {
        def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerMain.yml')
      }
    }
