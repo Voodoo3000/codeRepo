@@ -32,7 +32,7 @@ node {
    }
    stage('Build infratsructure') {
      withAWS(credentials:'jenkins_aws') {
-       def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerMain.yml')
+       def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerEmbedded.yml')
      }
    }
 }                                          
