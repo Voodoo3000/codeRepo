@@ -30,11 +30,6 @@ node {
        def app = docker.build("voodoo3000/docker-nodejs-demo:${commit_id}", '.').push()
      }                                     
    }
-   stage('Build infratsructure') {
-     withAWS(credentials:'jenkins_aws') {
-       def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerEmbedded.yml')
-     }
-   }
    stage('EC2 docker provision') {
      ansiblePlaybook( 
         playbook: '/home/ec2-user/cdRepo/playbook.yml',
