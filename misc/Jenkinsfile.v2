@@ -32,8 +32,8 @@ node {
    }
    stage('EC2 docker provision') {
      ansiblePlaybook( 
-        playbook: '/home/ec2-user/cdRepo/playbook.yml',
-        inventory: '/home/ec2-user/cdRepo/hosts.cfg', 
+        playbook: '/home/cdRepo/playbook.yml',
+        inventory: '/home/cdRepo/hosts.cfg', 
         credentialsId: 'ec2_ssh_conn')
    }
 }                                          
