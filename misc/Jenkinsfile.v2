@@ -35,4 +35,11 @@ node {
        def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerEmbedded.yml')
      }
    }
+   stage('EC2 docker provision') {
+     ansiblePlaybook( 
+        playbook: '/home/ec2-user/cdRepo/playbook.yml',
+        inventory: '/home/ec2-user/cdRepo/hosts.cfg', 
+        credentialsId: 'ec2_ssh_conn')
+     }
+   }
 }                                          
