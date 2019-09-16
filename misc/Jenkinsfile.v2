@@ -30,4 +30,10 @@ node {
        def app = docker.build("voodoo3000/docker-nodejs-demo:${commit_id}", '.').push()
      }                                     
    }
+   stage('EC2 docker provision') {
+     ansiblePlaybook( 
+        playbook: '/home/ec2-user/cdRepo/playbook.yml',
+        inventory: '/home/ec2-user/cdRepo/hosts.cfg', 
+        credentialsId: 'ec2_ssh_conn')
+   }
 }                                          
