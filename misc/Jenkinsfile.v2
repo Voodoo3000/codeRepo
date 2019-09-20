@@ -39,7 +39,7 @@ node {
    stage('EC2 docker provision') {
      ansiblePlaybook( 
         playbook: '/home/cdRepo/playbook.yml',
-        inventoryContent: 'ec2Ip', 
+        inventoryContent: '35.171.161.225', 
         credentialsId: 'ec2_ssh_conn',
         disableHostKeyChecking: true,
         extraVars: [build_number_param: env.BUILD_NUMBER])
