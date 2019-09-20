@@ -1,6 +1,7 @@
 node {
    def commit_id
    def build_number = env.BUILD_NUMBER
+   def ec2Ip
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
@@ -32,12 +33,13 @@ node {
    stage('Build infratsructure') {
      withAWS(credentials:'jenkins_aws') {
        def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerEmbedded.yml', params:['InstanceTypeParameter': 't2.micro', 'VpcCIDR': '10.21.199.192/26', 'Subnet1CIDR': '10.21.199.192/27', 'Subnet2CIDR': '10.21.199.224/27', 'dmpKeyName': 'dmpKeyPair'])
+       ec2Ip = outputs.EC2Ip
      }
    }
    stage('EC2 docker provision') {
      ansiblePlaybook( 
         playbook: '/home/cdRepo/playbook.yml',
-        inventoryContent: '52.87.156.220', 
+        inventoryContent: 'ec2Ip', 
         credentialsId: 'ec2_ssh_conn',
         disableHostKeyChecking: true,
         extraVars: [build_number_param: env.BUILD_NUMBER])
