@@ -43,6 +43,7 @@ node {
         inventoryContent: '35.171.161.225', 
         credentialsId: 'ec2_ssh_conn',
         disableHostKeyChecking: true,
-        extraVars: [build_number_param: env.BUILD_NUMBER])
+        extraVars: [build_number_param: env.BUILD_NUMBER],
+        extras: '-vvv')
    }
 }                                          
