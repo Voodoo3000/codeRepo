@@ -37,6 +37,7 @@ node {
      }
    }
    stage('EC2 docker provision') {
+     sh 'whoami'
      environment {DEFAULT_LOCAL_TMP = '/var/jenkins_home/'}
      ansiblePlaybook( 
         playbook: '/home/cdRepo/playbook.yml',
