@@ -41,7 +41,7 @@ node {
      environment {DEFAULT_LOCAL_TMP = '/var/jenkins_home/'}
      ansiblePlaybook( 
         playbook: '/home/cdRepo/playbook.yml',
-        inventoryContent: '35.171.161.225', 
+        inventoryContent: 'ec2Ip', 
         credentialsId: 'ec2_ssh_conn',
         disableHostKeyChecking: true,
         extraVars: [build_number_param: env.BUILD_NUMBER],
