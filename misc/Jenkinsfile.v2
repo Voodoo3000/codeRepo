@@ -8,7 +8,7 @@ node {
      commit_id = readFile('.git/commit-id').trim()
      String SLEEP_TIME_IN_SECONDS = 10
      def time = params.SLEEP_TIME_IN_SECONDS
-     echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for deployment to complete prior starting smoke testing"
+     echo "Waiting ${time} seconds for deployment to complete prior starting smoke testing"
      sleep time.toInteger() // seconds
    }
    stage('test') {
