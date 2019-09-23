@@ -34,11 +34,13 @@ node {
      withAWS(credentials:'jenkins_aws') {
        def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerEmbedded.yml', params:['InstanceTypeParameter': 't2.micro', 'VpcCIDR': '10.21.199.192/26', 'Subnet1CIDR': '10.21.199.192/27', 'Subnet2CIDR': '10.21.199.224/27', 'dmpKeyName': 'dmpKeyPair'])
        ec2Ip = outputs.EC2Ip
+       String SLEEP_TIME_IN_SECONDS = 10
+       def time = params.SLEEP_TIME_IN_SECONDS
+       echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for deployment to complete prior starting smoke testing"
+       sleep time.toInteger() // seconds
      }
    }
    stage('EC2 docker provision') {
-     sh 'whoami'
-     environment {DEFAULT_LOCAL_TMP = '/var/jenkins_home/'}
      ansiblePlaybook( 
         playbook: '/home/cdRepo/playbook.yml',
         inventoryContent: "${ec2Ip}", 
