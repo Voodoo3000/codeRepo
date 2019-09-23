@@ -6,7 +6,8 @@ node {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
      commit_id = readFile('.git/commit-id').trim()
-     sleep time.toInteger(15) // seconds
+     def time = 15
+     sleep time.toInteger() // seconds
    }
    stage('test') {
      def myTestContainer = docker.image('node:4.6')
