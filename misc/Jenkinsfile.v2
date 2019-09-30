@@ -2,14 +2,11 @@ node {
    def commit_id
    def build_number = env.BUILD_NUMBER
    def ec2Ip
-   String SLEEP_TIME_IN_SECONDS = 10
+   String SLEEP_TIME_IN_SECONDS = 20
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
      commit_id = readFile('.git/commit-id').trim()
-     def time = SLEEP_TIME_IN_SECONDS
-     echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for deployment to complete prior starting smoke testing"
-     sleep time.toInteger() // seconds
    }
    stage('test') {
      def myTestContainer = docker.image('node:4.6')
@@ -38,6 +35,9 @@ node {
      withAWS(credentials:'jenkins_aws') {
        def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerEmbedded.yml', params:['InstanceTypeParameter': 't2.micro', 'VpcCIDR': '10.21.199.192/26', 'Subnet1CIDR': '10.21.199.192/27', 'Subnet2CIDR': '10.21.199.224/27', 'dmpKeyName': 'dmpKeyPair'])
        ec2Ip = outputs.EC2Ip
+       def time = SLEEP_TIME_IN_SECONDS
+       echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for EC2 instance initialization"
+       sleep time.toInteger() // seconds
      }
    }
    stage('EC2 docker provision') {
