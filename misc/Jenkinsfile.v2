@@ -2,6 +2,7 @@ node {
    def commit_id
    def build_number = env.BUILD_NUMBER
    def ec2Ip
+   String SLEEP_TIME_IN_SECONDS = 10
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
