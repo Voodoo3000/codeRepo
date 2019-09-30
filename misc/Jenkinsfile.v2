@@ -36,7 +36,7 @@ node {
        def outputs = cfnUpdate(stack:'MyJDAStack', url:'https://cf-templates-kwzyx2txxull-us-east-1.s3.amazonaws.com/JenkinsDockerEmbedded.yml', params:['InstanceTypeParameter': 't2.micro', 'VpcCIDR': '10.21.199.192/26', 'Subnet1CIDR': '10.21.199.192/27', 'Subnet2CIDR': '10.21.199.224/27', 'dmpKeyName': 'dmpKeyPair'])
        ec2Ip = outputs.EC2Ip
        def time = SLEEP_TIME_IN_SECONDS
-       echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for EC2 instance initialization"
+       echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for EC2 instance initializing"
        sleep time.toInteger() // seconds
      }
    }
