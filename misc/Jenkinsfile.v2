@@ -7,7 +7,7 @@ node {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
      commit_id = readFile('.git/commit-id').trim()
-     def time = params.SLEEP_TIME_IN_SECONDS
+     def time = SLEEP_TIME_IN_SECONDS
      echo "Waiting ${SLEEP_TIME_IN_SECONDS} seconds for deployment to complete prior starting smoke testing"
      sleep time.toInteger() // seconds
    }
